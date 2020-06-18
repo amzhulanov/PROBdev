@@ -1,0 +1,97 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'com.google.protobuf' version '0.8.8'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+}
+
+group 'com.jam.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { // The google mirror is less flaky than mavenCentral()
+        url "https://maven-central.storage-download.googleapis.com/repos/central/data/"
+    }
+    mavenCentral()
+    mavenLocal()
+}
+
+def grpcVersion = '1.30.0' // CURRENT_GRPC_VERSION
+def protobufVersion = '3.12.0'
+def protocVersion = protobufVersion
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.springframework.security:spring-security-config'
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+    implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+    compile group: 'net.devh', name: 'grpc-spring-boot-starter', version: '2.9.0.RELEASE'
+    compile group: 'net.devh', name: 'grpc-client-spring-boot-autoconfigure', version: '2.9.0.RELEASE'
+    compile group: 'net.devh', name: 'grpc-server-spring-boot-starter', version: '2.9.0.RELEASE'
+    compile group: 'net.devh', name: 'grpc-server-spring-boot-autoconfigure', version: '2.9.0.RELEASE'
+
+
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    compile group: 'io.grpc', name: 'grpc-core', version: '1.30.0'
+
+    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    runtimeOnly 'org.postgresql:postgresql'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/protoGen', 'generated-sources/main/java'
+        }
+    }
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+    }
+    generateProtoTasks.generatedFilesBaseDir = 'generated-sources'
+    generateProtoTasks {
+
+        ofSourceSet('main').each { task ->
+            task.builtins {
+                java {
+                    outputSubDir = 'protoGen'
+                }
+            }
+            task.plugins {
+                grpc{
+                    outputSubDir = 'protoGen'
+                }
+            }
+        }
+    }
+}
+
+lombok {
+    version = '1.18.4'
+    sha256 = ""
+}
+wrapper {
+    gradleVersion = "6.3"
+}
+
+

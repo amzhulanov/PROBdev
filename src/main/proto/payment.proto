@@ -1,0 +1,18 @@
+syntax="proto3";
+
+option java_multiple_files=true;
+option java_package="grpc";
+
+message Card{
+    int32 userId=1;
+    int32 amount=2;
+}
+
+message APIResponse{
+    int32 idTask=1;
+}
+
+service PaymentService{
+    rpc enroll(Card) returns (APIResponse);
+    rpc refund(Card) returns (APIResponse);
+}
