@@ -3,8 +3,8 @@
 
 package grpc;
 
-public interface CardOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:Card)
+public interface CashFlowOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:CashFlow)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -23,14 +23,17 @@ public interface CardOrBuilder extends
   grpc.UUIDOrBuilder getUserIdOrBuilder();
 
   /**
-   * <code>string number = 2;</code>
-   * @return The number.
+   * <code>.BDecimal amount = 2;</code>
+   * @return Whether the amount field is set.
    */
-  java.lang.String getNumber();
+  boolean hasAmount();
   /**
-   * <code>string number = 2;</code>
-   * @return The bytes for number.
+   * <code>.BDecimal amount = 2;</code>
+   * @return The amount.
    */
-  com.google.protobuf.ByteString
-      getNumberBytes();
+  grpc.BDecimal getAmount();
+  /**
+   * <code>.BDecimal amount = 2;</code>
+   */
+  grpc.BDecimalOrBuilder getAmountOrBuilder();
 }

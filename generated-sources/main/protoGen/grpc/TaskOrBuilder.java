@@ -3,8 +3,8 @@
 
 package grpc;
 
-public interface CardOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:Card)
+public interface TaskOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:Task)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -23,14 +23,20 @@ public interface CardOrBuilder extends
   grpc.UUIDOrBuilder getUserIdOrBuilder();
 
   /**
-   * <code>string number = 2;</code>
-   * @return The number.
+   * <code>int32 type = 2;</code>
+   * @return The type.
    */
-  java.lang.String getNumber();
+  int getType();
+
   /**
-   * <code>string number = 2;</code>
-   * @return The bytes for number.
+   * <code>string update = 3;</code>
+   * @return The update.
+   */
+  java.lang.String getUpdate();
+  /**
+   * <code>string update = 3;</code>
+   * @return The bytes for update.
    */
   com.google.protobuf.ByteString
-      getNumberBytes();
+      getUpdateBytes();
 }

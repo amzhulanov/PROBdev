@@ -4,25 +4,26 @@
 package grpc;
 
 /**
- * Protobuf type {@code APIResponse}
+ * Protobuf type {@code Status}
  */
-public final class APIResponse extends
+public final class Status extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:APIResponse)
-    APIResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:Status)
+    StatusOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use APIResponse.newBuilder() to construct.
-  private APIResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use Status.newBuilder() to construct.
+  private Status(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private APIResponse() {
+  private Status() {
+    status_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new APIResponse();
+    return new Status();
   }
 
   @java.lang.Override
@@ -30,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private APIResponse(
+  private Status(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -49,16 +50,9 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            grpc.UUID.Builder subBuilder = null;
-            if (idTask_ != null) {
-              subBuilder = idTask_.toBuilder();
-            }
-            idTask_ = input.readMessage(grpc.UUID.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(idTask_);
-              idTask_ = subBuilder.buildPartial();
-            }
+            java.lang.String s = input.readStringRequireUtf8();
 
+            status_ = s;
             break;
           }
           default: {
@@ -82,41 +76,53 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return grpc.Payment.internal_static_APIResponse_descriptor;
+    return grpc.Payment.internal_static_Status_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return grpc.Payment.internal_static_APIResponse_fieldAccessorTable
+    return grpc.Payment.internal_static_Status_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            grpc.APIResponse.class, grpc.APIResponse.Builder.class);
+            grpc.Status.class, grpc.Status.Builder.class);
   }
 
-  public static final int IDTASK_FIELD_NUMBER = 1;
-  private grpc.UUID idTask_;
+  public static final int STATUS_FIELD_NUMBER = 1;
+  private volatile java.lang.Object status_;
   /**
-   * <code>.UUID idTask = 1;</code>
-   * @return Whether the idTask field is set.
+   * <code>string status = 1;</code>
+   * @return The status.
    */
   @java.lang.Override
-  public boolean hasIdTask() {
-    return idTask_ != null;
+  public java.lang.String getStatus() {
+    java.lang.Object ref = status_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      status_ = s;
+      return s;
+    }
   }
   /**
-   * <code>.UUID idTask = 1;</code>
-   * @return The idTask.
+   * <code>string status = 1;</code>
+   * @return The bytes for status.
    */
   @java.lang.Override
-  public grpc.UUID getIdTask() {
-    return idTask_ == null ? grpc.UUID.getDefaultInstance() : idTask_;
-  }
-  /**
-   * <code>.UUID idTask = 1;</code>
-   */
-  @java.lang.Override
-  public grpc.UUIDOrBuilder getIdTaskOrBuilder() {
-    return getIdTask();
+  public com.google.protobuf.ByteString
+      getStatusBytes() {
+    java.lang.Object ref = status_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      status_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -133,8 +139,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (idTask_ != null) {
-      output.writeMessage(1, getIdTask());
+    if (!getStatusBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, status_);
     }
     unknownFields.writeTo(output);
   }
@@ -145,9 +151,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (idTask_ != null) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, getIdTask());
+    if (!getStatusBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, status_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -159,16 +164,13 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof grpc.APIResponse)) {
+    if (!(obj instanceof grpc.Status)) {
       return super.equals(obj);
     }
-    grpc.APIResponse other = (grpc.APIResponse) obj;
+    grpc.Status other = (grpc.Status) obj;
 
-    if (hasIdTask() != other.hasIdTask()) return false;
-    if (hasIdTask()) {
-      if (!getIdTask()
-          .equals(other.getIdTask())) return false;
-    }
+    if (!getStatus()
+        .equals(other.getStatus())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -180,78 +182,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasIdTask()) {
-      hash = (37 * hash) + IDTASK_FIELD_NUMBER;
-      hash = (53 * hash) + getIdTask().hashCode();
-    }
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + getStatus().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.APIResponse parseFrom(byte[] data)
+  public static grpc.Status parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.APIResponse parseFrom(java.io.InputStream input)
+  public static grpc.Status parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static grpc.APIResponse parseDelimitedFrom(java.io.InputStream input)
+  public static grpc.Status parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static grpc.APIResponse parseDelimitedFrom(
+  public static grpc.Status parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static grpc.APIResponse parseFrom(
+  public static grpc.Status parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -264,7 +264,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(grpc.APIResponse prototype) {
+  public static Builder newBuilder(grpc.Status prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -280,26 +280,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code APIResponse}
+   * Protobuf type {@code Status}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:APIResponse)
-      grpc.APIResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:Status)
+      grpc.StatusOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return grpc.Payment.internal_static_APIResponse_descriptor;
+      return grpc.Payment.internal_static_Status_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return grpc.Payment.internal_static_APIResponse_fieldAccessorTable
+      return grpc.Payment.internal_static_Status_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              grpc.APIResponse.class, grpc.APIResponse.Builder.class);
+              grpc.Status.class, grpc.Status.Builder.class);
     }
 
-    // Construct using grpc.APIResponse.newBuilder()
+    // Construct using grpc.Status.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -317,29 +317,25 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      if (idTaskBuilder_ == null) {
-        idTask_ = null;
-      } else {
-        idTask_ = null;
-        idTaskBuilder_ = null;
-      }
+      status_ = "";
+
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return grpc.Payment.internal_static_APIResponse_descriptor;
+      return grpc.Payment.internal_static_Status_descriptor;
     }
 
     @java.lang.Override
-    public grpc.APIResponse getDefaultInstanceForType() {
-      return grpc.APIResponse.getDefaultInstance();
+    public grpc.Status getDefaultInstanceForType() {
+      return grpc.Status.getDefaultInstance();
     }
 
     @java.lang.Override
-    public grpc.APIResponse build() {
-      grpc.APIResponse result = buildPartial();
+    public grpc.Status build() {
+      grpc.Status result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -347,13 +343,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public grpc.APIResponse buildPartial() {
-      grpc.APIResponse result = new grpc.APIResponse(this);
-      if (idTaskBuilder_ == null) {
-        result.idTask_ = idTask_;
-      } else {
-        result.idTask_ = idTaskBuilder_.build();
-      }
+    public grpc.Status buildPartial() {
+      grpc.Status result = new grpc.Status(this);
+      result.status_ = status_;
       onBuilt();
       return result;
     }
@@ -392,18 +384,19 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof grpc.APIResponse) {
-        return mergeFrom((grpc.APIResponse)other);
+      if (other instanceof grpc.Status) {
+        return mergeFrom((grpc.Status)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(grpc.APIResponse other) {
-      if (other == grpc.APIResponse.getDefaultInstance()) return this;
-      if (other.hasIdTask()) {
-        mergeIdTask(other.getIdTask());
+    public Builder mergeFrom(grpc.Status other) {
+      if (other == grpc.Status.getDefaultInstance()) return this;
+      if (!other.getStatus().isEmpty()) {
+        status_ = other.status_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -420,11 +413,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      grpc.APIResponse parsedMessage = null;
+      grpc.Status parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (grpc.APIResponse) e.getUnfinishedMessage();
+        parsedMessage = (grpc.Status) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -434,123 +427,80 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private grpc.UUID idTask_;
-    private com.google.protobuf.SingleFieldBuilderV3<
-        grpc.UUID, grpc.UUID.Builder, grpc.UUIDOrBuilder> idTaskBuilder_;
+    private java.lang.Object status_ = "";
     /**
-     * <code>.UUID idTask = 1;</code>
-     * @return Whether the idTask field is set.
+     * <code>string status = 1;</code>
+     * @return The status.
      */
-    public boolean hasIdTask() {
-      return idTaskBuilder_ != null || idTask_ != null;
-    }
-    /**
-     * <code>.UUID idTask = 1;</code>
-     * @return The idTask.
-     */
-    public grpc.UUID getIdTask() {
-      if (idTaskBuilder_ == null) {
-        return idTask_ == null ? grpc.UUID.getDefaultInstance() : idTask_;
+    public java.lang.String getStatus() {
+      java.lang.Object ref = status_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        status_ = s;
+        return s;
       } else {
-        return idTaskBuilder_.getMessage();
+        return (java.lang.String) ref;
       }
     }
     /**
-     * <code>.UUID idTask = 1;</code>
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
      */
-    public Builder setIdTask(grpc.UUID value) {
-      if (idTaskBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        idTask_ = value;
-        onChanged();
+    public com.google.protobuf.ByteString
+        getStatusBytes() {
+      java.lang.Object ref = status_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        status_ = b;
+        return b;
       } else {
-        idTaskBuilder_.setMessage(value);
+        return (com.google.protobuf.ByteString) ref;
       }
-
-      return this;
     }
     /**
-     * <code>.UUID idTask = 1;</code>
+     * <code>string status = 1;</code>
+     * @param value The status to set.
+     * @return This builder for chaining.
      */
-    public Builder setIdTask(
-        grpc.UUID.Builder builderForValue) {
-      if (idTaskBuilder_ == null) {
-        idTask_ = builderForValue.build();
-        onChanged();
-      } else {
-        idTaskBuilder_.setMessage(builderForValue.build());
-      }
-
-      return this;
-    }
-    /**
-     * <code>.UUID idTask = 1;</code>
-     */
-    public Builder mergeIdTask(grpc.UUID value) {
-      if (idTaskBuilder_ == null) {
-        if (idTask_ != null) {
-          idTask_ =
-            grpc.UUID.newBuilder(idTask_).mergeFrom(value).buildPartial();
-        } else {
-          idTask_ = value;
-        }
-        onChanged();
-      } else {
-        idTaskBuilder_.mergeFrom(value);
-      }
-
-      return this;
-    }
-    /**
-     * <code>.UUID idTask = 1;</code>
-     */
-    public Builder clearIdTask() {
-      if (idTaskBuilder_ == null) {
-        idTask_ = null;
-        onChanged();
-      } else {
-        idTask_ = null;
-        idTaskBuilder_ = null;
-      }
-
-      return this;
-    }
-    /**
-     * <code>.UUID idTask = 1;</code>
-     */
-    public grpc.UUID.Builder getIdTaskBuilder() {
-      
+    public Builder setStatus(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      status_ = value;
       onChanged();
-      return getIdTaskFieldBuilder().getBuilder();
+      return this;
     }
     /**
-     * <code>.UUID idTask = 1;</code>
+     * <code>string status = 1;</code>
+     * @return This builder for chaining.
      */
-    public grpc.UUIDOrBuilder getIdTaskOrBuilder() {
-      if (idTaskBuilder_ != null) {
-        return idTaskBuilder_.getMessageOrBuilder();
-      } else {
-        return idTask_ == null ?
-            grpc.UUID.getDefaultInstance() : idTask_;
-      }
+    public Builder clearStatus() {
+      
+      status_ = getDefaultInstance().getStatus();
+      onChanged();
+      return this;
     }
     /**
-     * <code>.UUID idTask = 1;</code>
+     * <code>string status = 1;</code>
+     * @param value The bytes for status to set.
+     * @return This builder for chaining.
      */
-    private com.google.protobuf.SingleFieldBuilderV3<
-        grpc.UUID, grpc.UUID.Builder, grpc.UUIDOrBuilder> 
-        getIdTaskFieldBuilder() {
-      if (idTaskBuilder_ == null) {
-        idTaskBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            grpc.UUID, grpc.UUID.Builder, grpc.UUIDOrBuilder>(
-                getIdTask(),
-                getParentForChildren(),
-                isClean());
-        idTask_ = null;
-      }
-      return idTaskBuilder_;
+    public Builder setStatusBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      status_ = value;
+      onChanged();
+      return this;
     }
     @java.lang.Override
     public final Builder setUnknownFields(
@@ -565,41 +515,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:APIResponse)
+    // @@protoc_insertion_point(builder_scope:Status)
   }
 
-  // @@protoc_insertion_point(class_scope:APIResponse)
-  private static final grpc.APIResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:Status)
+  private static final grpc.Status DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new grpc.APIResponse();
+    DEFAULT_INSTANCE = new grpc.Status();
   }
 
-  public static grpc.APIResponse getDefaultInstance() {
+  public static grpc.Status getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<APIResponse>
-      PARSER = new com.google.protobuf.AbstractParser<APIResponse>() {
+  private static final com.google.protobuf.Parser<Status>
+      PARSER = new com.google.protobuf.AbstractParser<Status>() {
     @java.lang.Override
-    public APIResponse parsePartialFrom(
+    public Status parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new APIResponse(input, extensionRegistry);
+      return new Status(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<APIResponse> parser() {
+  public static com.google.protobuf.Parser<Status> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<APIResponse> getParserForType() {
+  public com.google.protobuf.Parser<Status> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public grpc.APIResponse getDefaultInstanceForType() {
+  public grpc.Status getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

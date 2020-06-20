@@ -1,11 +1,10 @@
 package com.jam.example.paymentservice.entities;
 
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
+import grpc.UUID;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.Objects;
 
 
 @Entity
@@ -17,17 +16,17 @@ public class UserCard extends AbstractEntityNoGen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long card_id;
+    private UUID card_id;
 
-    private String cardNumber;
+    private String card_number;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    public UserCard(Long card_id,String cardNumber) {
-        this.card_id=card_id;
-        this.cardNumber = cardNumber;
+    public UserCard(String card_number,User user) {
+        this.card_number = card_number;
+        this.user=user;
     }
 
 }

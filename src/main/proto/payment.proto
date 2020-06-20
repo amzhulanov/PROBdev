@@ -3,16 +3,56 @@ syntax="proto3";
 option java_multiple_files=true;
 option java_package="grpc";
 
-message Card{
-    int32 userId=1;
-    int32 amount=2;
+message CashFlow{
+    UUID userId=1;
+    BDecimal amount=2;
 }
 
 message APIResponse{
-    int32 idTask=1;
+    UUID idTask=1;
+}
+
+message Card{
+    UUID userId=1;
+    string number=2;
+}
+
+message UserId{
+    UUID userId=1;
+}
+message Status{
+    string status=1;
+}
+
+message Balance {
+    BDecimal amount=1;
+}
+
+message Task{
+    UUID userId=1;
+    int32 type=2;
+    string update=3;
+
+}
+
+message UUID{
+    string value=1;
+}
+
+message BDecimal {
+    int32 scale = 1;
+    BInteger int_val = 2;
+}
+message BInteger {
+    bytes value = 1;
 }
 
 service PaymentService{
-    rpc enroll(Card) returns (APIResponse);
-    rpc refund(Card) returns (APIResponse);
+    rpc payment(CashFlow) returns (APIResponse);
+    rpc enroll(CashFlow) returns (Status);
+    rpc refund(CashFlow) returns (APIResponse);
+    rpc addCard(Card) returns (APIResponse);
+    rpc delCard(Card) returns (Status);
+    rpc getBalance(UserId) returns (Balance);
+
 }

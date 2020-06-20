@@ -8,8 +8,17 @@ public interface APIResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 idTask = 1;</code>
+   * <code>.UUID idTask = 1;</code>
+   * @return Whether the idTask field is set.
+   */
+  boolean hasIdTask();
+  /**
+   * <code>.UUID idTask = 1;</code>
    * @return The idTask.
    */
-  int getIdTask();
+  grpc.UUID getIdTask();
+  /**
+   * <code>.UUID idTask = 1;</code>
+   */
+  grpc.UUIDOrBuilder getIdTaskOrBuilder();
 }

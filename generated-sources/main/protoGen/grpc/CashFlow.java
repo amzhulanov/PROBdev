@@ -4,26 +4,25 @@
 package grpc;
 
 /**
- * Protobuf type {@code Card}
+ * Protobuf type {@code CashFlow}
  */
-public final class Card extends
+public final class CashFlow extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:Card)
-    CardOrBuilder {
+    // @@protoc_insertion_point(message_implements:CashFlow)
+    CashFlowOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Card.newBuilder() to construct.
-  private Card(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use CashFlow.newBuilder() to construct.
+  private CashFlow(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Card() {
-    number_ = "";
+  private CashFlow() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new Card();
+    return new CashFlow();
   }
 
   @java.lang.Override
@@ -31,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Card(
+  private CashFlow(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -63,9 +62,16 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
+            grpc.BDecimal.Builder subBuilder = null;
+            if (amount_ != null) {
+              subBuilder = amount_.toBuilder();
+            }
+            amount_ = input.readMessage(grpc.BDecimal.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(amount_);
+              amount_ = subBuilder.buildPartial();
+            }
 
-            number_ = s;
             break;
           }
           default: {
@@ -89,15 +95,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return grpc.Payment.internal_static_Card_descriptor;
+    return grpc.Payment.internal_static_CashFlow_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return grpc.Payment.internal_static_Card_fieldAccessorTable
+    return grpc.Payment.internal_static_CashFlow_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            grpc.Card.class, grpc.Card.Builder.class);
+            grpc.CashFlow.class, grpc.CashFlow.Builder.class);
   }
 
   public static final int USERID_FIELD_NUMBER = 1;
@@ -126,42 +132,30 @@ private static final long serialVersionUID = 0L;
     return getUserId();
   }
 
-  public static final int NUMBER_FIELD_NUMBER = 2;
-  private volatile java.lang.Object number_;
+  public static final int AMOUNT_FIELD_NUMBER = 2;
+  private grpc.BDecimal amount_;
   /**
-   * <code>string number = 2;</code>
-   * @return The number.
+   * <code>.BDecimal amount = 2;</code>
+   * @return Whether the amount field is set.
    */
   @java.lang.Override
-  public java.lang.String getNumber() {
-    java.lang.Object ref = number_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      number_ = s;
-      return s;
-    }
+  public boolean hasAmount() {
+    return amount_ != null;
   }
   /**
-   * <code>string number = 2;</code>
-   * @return The bytes for number.
+   * <code>.BDecimal amount = 2;</code>
+   * @return The amount.
    */
   @java.lang.Override
-  public com.google.protobuf.ByteString
-      getNumberBytes() {
-    java.lang.Object ref = number_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      number_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public grpc.BDecimal getAmount() {
+    return amount_ == null ? grpc.BDecimal.getDefaultInstance() : amount_;
+  }
+  /**
+   * <code>.BDecimal amount = 2;</code>
+   */
+  @java.lang.Override
+  public grpc.BDecimalOrBuilder getAmountOrBuilder() {
+    return getAmount();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -181,8 +175,8 @@ private static final long serialVersionUID = 0L;
     if (userId_ != null) {
       output.writeMessage(1, getUserId());
     }
-    if (!getNumberBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, number_);
+    if (amount_ != null) {
+      output.writeMessage(2, getAmount());
     }
     unknownFields.writeTo(output);
   }
@@ -197,8 +191,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getUserId());
     }
-    if (!getNumberBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, number_);
+    if (amount_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(2, getAmount());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -210,18 +205,21 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof grpc.Card)) {
+    if (!(obj instanceof grpc.CashFlow)) {
       return super.equals(obj);
     }
-    grpc.Card other = (grpc.Card) obj;
+    grpc.CashFlow other = (grpc.CashFlow) obj;
 
     if (hasUserId() != other.hasUserId()) return false;
     if (hasUserId()) {
       if (!getUserId()
           .equals(other.getUserId())) return false;
     }
-    if (!getNumber()
-        .equals(other.getNumber())) return false;
+    if (hasAmount() != other.hasAmount()) return false;
+    if (hasAmount()) {
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -237,76 +235,78 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + USERID_FIELD_NUMBER;
       hash = (53 * hash) + getUserId().hashCode();
     }
-    hash = (37 * hash) + NUMBER_FIELD_NUMBER;
-    hash = (53 * hash) + getNumber().hashCode();
+    if (hasAmount()) {
+      hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getAmount().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.Card parseFrom(byte[] data)
+  public static grpc.CashFlow parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.Card parseFrom(java.io.InputStream input)
+  public static grpc.CashFlow parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static grpc.Card parseDelimitedFrom(java.io.InputStream input)
+  public static grpc.CashFlow parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static grpc.Card parseDelimitedFrom(
+  public static grpc.CashFlow parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static grpc.Card parseFrom(
+  public static grpc.CashFlow parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -319,7 +319,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(grpc.Card prototype) {
+  public static Builder newBuilder(grpc.CashFlow prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -335,26 +335,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code Card}
+   * Protobuf type {@code CashFlow}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:Card)
-      grpc.CardOrBuilder {
+      // @@protoc_insertion_point(builder_implements:CashFlow)
+      grpc.CashFlowOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return grpc.Payment.internal_static_Card_descriptor;
+      return grpc.Payment.internal_static_CashFlow_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return grpc.Payment.internal_static_Card_fieldAccessorTable
+      return grpc.Payment.internal_static_CashFlow_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              grpc.Card.class, grpc.Card.Builder.class);
+              grpc.CashFlow.class, grpc.CashFlow.Builder.class);
     }
 
-    // Construct using grpc.Card.newBuilder()
+    // Construct using grpc.CashFlow.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -378,25 +378,29 @@ private static final long serialVersionUID = 0L;
         userId_ = null;
         userIdBuilder_ = null;
       }
-      number_ = "";
-
+      if (amountBuilder_ == null) {
+        amount_ = null;
+      } else {
+        amount_ = null;
+        amountBuilder_ = null;
+      }
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return grpc.Payment.internal_static_Card_descriptor;
+      return grpc.Payment.internal_static_CashFlow_descriptor;
     }
 
     @java.lang.Override
-    public grpc.Card getDefaultInstanceForType() {
-      return grpc.Card.getDefaultInstance();
+    public grpc.CashFlow getDefaultInstanceForType() {
+      return grpc.CashFlow.getDefaultInstance();
     }
 
     @java.lang.Override
-    public grpc.Card build() {
-      grpc.Card result = buildPartial();
+    public grpc.CashFlow build() {
+      grpc.CashFlow result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -404,14 +408,18 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public grpc.Card buildPartial() {
-      grpc.Card result = new grpc.Card(this);
+    public grpc.CashFlow buildPartial() {
+      grpc.CashFlow result = new grpc.CashFlow(this);
       if (userIdBuilder_ == null) {
         result.userId_ = userId_;
       } else {
         result.userId_ = userIdBuilder_.build();
       }
-      result.number_ = number_;
+      if (amountBuilder_ == null) {
+        result.amount_ = amount_;
+      } else {
+        result.amount_ = amountBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -450,22 +458,21 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof grpc.Card) {
-        return mergeFrom((grpc.Card)other);
+      if (other instanceof grpc.CashFlow) {
+        return mergeFrom((grpc.CashFlow)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(grpc.Card other) {
-      if (other == grpc.Card.getDefaultInstance()) return this;
+    public Builder mergeFrom(grpc.CashFlow other) {
+      if (other == grpc.CashFlow.getDefaultInstance()) return this;
       if (other.hasUserId()) {
         mergeUserId(other.getUserId());
       }
-      if (!other.getNumber().isEmpty()) {
-        number_ = other.number_;
-        onChanged();
+      if (other.hasAmount()) {
+        mergeAmount(other.getAmount());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -482,11 +489,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      grpc.Card parsedMessage = null;
+      grpc.CashFlow parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (grpc.Card) e.getUnfinishedMessage();
+        parsedMessage = (grpc.CashFlow) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -615,80 +622,123 @@ private static final long serialVersionUID = 0L;
       return userIdBuilder_;
     }
 
-    private java.lang.Object number_ = "";
+    private grpc.BDecimal amount_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        grpc.BDecimal, grpc.BDecimal.Builder, grpc.BDecimalOrBuilder> amountBuilder_;
     /**
-     * <code>string number = 2;</code>
-     * @return The number.
+     * <code>.BDecimal amount = 2;</code>
+     * @return Whether the amount field is set.
      */
-    public java.lang.String getNumber() {
-      java.lang.Object ref = number_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        number_ = s;
-        return s;
+    public boolean hasAmount() {
+      return amountBuilder_ != null || amount_ != null;
+    }
+    /**
+     * <code>.BDecimal amount = 2;</code>
+     * @return The amount.
+     */
+    public grpc.BDecimal getAmount() {
+      if (amountBuilder_ == null) {
+        return amount_ == null ? grpc.BDecimal.getDefaultInstance() : amount_;
       } else {
-        return (java.lang.String) ref;
+        return amountBuilder_.getMessage();
       }
     }
     /**
-     * <code>string number = 2;</code>
-     * @return The bytes for number.
+     * <code>.BDecimal amount = 2;</code>
      */
-    public com.google.protobuf.ByteString
-        getNumberBytes() {
-      java.lang.Object ref = number_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        number_ = b;
-        return b;
+    public Builder setAmount(grpc.BDecimal value) {
+      if (amountBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        amount_ = value;
+        onChanged();
       } else {
-        return (com.google.protobuf.ByteString) ref;
+        amountBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.BDecimal amount = 2;</code>
+     */
+    public Builder setAmount(
+        grpc.BDecimal.Builder builderForValue) {
+      if (amountBuilder_ == null) {
+        amount_ = builderForValue.build();
+        onChanged();
+      } else {
+        amountBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.BDecimal amount = 2;</code>
+     */
+    public Builder mergeAmount(grpc.BDecimal value) {
+      if (amountBuilder_ == null) {
+        if (amount_ != null) {
+          amount_ =
+            grpc.BDecimal.newBuilder(amount_).mergeFrom(value).buildPartial();
+        } else {
+          amount_ = value;
+        }
+        onChanged();
+      } else {
+        amountBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.BDecimal amount = 2;</code>
+     */
+    public Builder clearAmount() {
+      if (amountBuilder_ == null) {
+        amount_ = null;
+        onChanged();
+      } else {
+        amount_ = null;
+        amountBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.BDecimal amount = 2;</code>
+     */
+    public grpc.BDecimal.Builder getAmountBuilder() {
+      
+      onChanged();
+      return getAmountFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.BDecimal amount = 2;</code>
+     */
+    public grpc.BDecimalOrBuilder getAmountOrBuilder() {
+      if (amountBuilder_ != null) {
+        return amountBuilder_.getMessageOrBuilder();
+      } else {
+        return amount_ == null ?
+            grpc.BDecimal.getDefaultInstance() : amount_;
       }
     }
     /**
-     * <code>string number = 2;</code>
-     * @param value The number to set.
-     * @return This builder for chaining.
+     * <code>.BDecimal amount = 2;</code>
      */
-    public Builder setNumber(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      number_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string number = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearNumber() {
-      
-      number_ = getDefaultInstance().getNumber();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string number = 2;</code>
-     * @param value The bytes for number to set.
-     * @return This builder for chaining.
-     */
-    public Builder setNumberBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      number_ = value;
-      onChanged();
-      return this;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        grpc.BDecimal, grpc.BDecimal.Builder, grpc.BDecimalOrBuilder> 
+        getAmountFieldBuilder() {
+      if (amountBuilder_ == null) {
+        amountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            grpc.BDecimal, grpc.BDecimal.Builder, grpc.BDecimalOrBuilder>(
+                getAmount(),
+                getParentForChildren(),
+                isClean());
+        amount_ = null;
+      }
+      return amountBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(
@@ -703,41 +753,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:Card)
+    // @@protoc_insertion_point(builder_scope:CashFlow)
   }
 
-  // @@protoc_insertion_point(class_scope:Card)
-  private static final grpc.Card DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:CashFlow)
+  private static final grpc.CashFlow DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new grpc.Card();
+    DEFAULT_INSTANCE = new grpc.CashFlow();
   }
 
-  public static grpc.Card getDefaultInstance() {
+  public static grpc.CashFlow getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Card>
-      PARSER = new com.google.protobuf.AbstractParser<Card>() {
+  private static final com.google.protobuf.Parser<CashFlow>
+      PARSER = new com.google.protobuf.AbstractParser<CashFlow>() {
     @java.lang.Override
-    public Card parsePartialFrom(
+    public CashFlow parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Card(input, extensionRegistry);
+      return new CashFlow(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Card> parser() {
+  public static com.google.protobuf.Parser<CashFlow> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Card> getParserForType() {
+  public com.google.protobuf.Parser<CashFlow> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public grpc.Card getDefaultInstanceForType() {
+  public grpc.CashFlow getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

@@ -3,8 +3,8 @@
 
 package grpc;
 
-public interface CardOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:Card)
+public interface UserIdOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:UserId)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -21,16 +21,4 @@ public interface CardOrBuilder extends
    * <code>.UUID userId = 1;</code>
    */
   grpc.UUIDOrBuilder getUserIdOrBuilder();
-
-  /**
-   * <code>string number = 2;</code>
-   * @return The number.
-   */
-  java.lang.String getNumber();
-  /**
-   * <code>string number = 2;</code>
-   * @return The bytes for number.
-   */
-  com.google.protobuf.ByteString
-      getNumberBytes();
 }

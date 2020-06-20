@@ -49,7 +49,7 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+  //  testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     runtimeOnly 'org.postgresql:postgresql'
@@ -89,6 +89,10 @@ protobuf {
 lombok {
     version = '1.18.4'
     sha256 = ""
+}
+
+configurations.all {
+    exclude module: 'slf4j-log4j12'
 }
 wrapper {
     gradleVersion = "6.3"

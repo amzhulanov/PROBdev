@@ -1,27 +1,25 @@
 package com.jam.example.paymentservice.entities;
 
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
+import grpc.BDecimal;
+import grpc.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "uzer")
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class User extends AbstractEntityNoGen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long user_id;
+    protected UUID user_id;
 
     @NotNull
     private String password;
@@ -30,9 +28,15 @@ public class User extends AbstractEntityNoGen {
     private String firstName;
 
     @NotNull
-    private BigDecimal balance;
+    private BDecimal balance;
 
-//    @OneToMany(fetch = FetchType.LAZY )
+    public User(String firstName, String password) {
+        this.firstName = firstName;
+        this.password = password;
+    }
+
+
+    //    @OneToMany(fetch = FetchType.LAZY )
 //    @JoinTable(name = "user_cards",
 //            joinColumns = @JoinColumn(name = "user_id"))
 //    private Collection<UserCard> cards;
