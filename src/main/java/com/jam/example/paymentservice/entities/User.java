@@ -1,12 +1,9 @@
 package com.jam.example.paymentservice.entities;
 
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
-import grpc.BDecimal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -1,5 +1,6 @@
 package com.jam.example.paymentservice.api;
 
+import com.jam.example.paymentservice.api.mapper.ConvertEntityToGrpc;
 import com.jam.example.paymentservice.api.mapper.ConvertGrpcToEntity;
 import com.jam.example.paymentservice.services.JournalOperationService;
 import com.jam.example.paymentservice.services.TaskService;
@@ -21,8 +22,6 @@ public class PaymentServer {
     private static final int KEEP_ALIVE_TIME = 10;
     private static final int KEEP_ALIVE_TIMEOUT = 20;
 
-
-
     @Value("${grpc.server.port}")
     public Integer port;
 
@@ -33,29 +32,24 @@ public class PaymentServer {
     private final UserCardService userCardService;
     private final JournalOperationService journalOperationService;
     private final ConvertGrpcToEntity convertGrpcToEntity;
+    private final ConvertEntityToGrpc convertEntityToGrpc;
 
-    public PaymentServer(UserService userService, TaskService taskService, UserCardService userCardService, JournalOperationService journalOperationService, ConvertGrpcToEntity convertGrpcToEntity) {
+    public PaymentServer(UserService userService, TaskService taskService, UserCardService userCardService, JournalOperationService journalOperationService, ConvertGrpcToEntity convertGrpcToEntity, ConvertEntityToGrpc convertEntityToGrpc) {
         this.userService = userService;
         this.taskService = taskService;
         this.userCardService = userCardService;
         this.journalOperationService = journalOperationService;
         this.convertGrpcToEntity = convertGrpcToEntity;
+        this.convertEntityToGrpc = convertEntityToGrpc;
     }
 
     public void start() throws IOException  {
-//        Server server = ServerBuilder
-//                .forPort(8080)
-//                .addService(new PaymentServiceImpl()).build();
-
         server.start();
-//        server.awaitTermination();
     }
 
     @PostConstruct
     public void postConstruct() throws Exception {
-
         // https://github.com/grpc/grpc-java/issues/779
-
         server = NettyServerBuilder
                 .forPort(port)
                 .permitKeepAliveWithoutCalls(true)
@@ -63,9 +57,8 @@ public class PaymentServer {
                 .keepAliveTime(KEEP_ALIVE_TIME, TimeUnit.SECONDS)
                 .keepAliveTimeout(KEEP_ALIVE_TIMEOUT, TimeUnit.SECONDS)
                 .permitKeepAliveTime(PERMIT_KEEP_ALIVE_TIME, TimeUnit.SECONDS)
-                .addService(ServerInterceptors.intercept(new PaymentServiceImpl(userService, taskService,userCardService,journalOperationService, convertGrpcToEntity)))
+                .addService(ServerInterceptors.intercept(new PaymentServiceImpl(userService, taskService,userCardService,journalOperationService, convertGrpcToEntity, convertEntityToGrpc)))
                 .build();
-
         start();
     }
 

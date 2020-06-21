@@ -21,7 +21,7 @@ public class UserCard extends AbstractEntityNoGen {
 
     private String card_number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 

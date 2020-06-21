@@ -151,35 +151,66 @@ public final class PaymentServiceGrpc {
     return getAddCardMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<grpc.Card,
-      grpc.Status> getDelCardMethod;
+  private static volatile io.grpc.MethodDescriptor<grpc.UserId,
+      grpc.WhoAreYouParams> getDelCardMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "delCard",
-      requestType = grpc.Card.class,
-      responseType = grpc.Status.class,
+      requestType = grpc.UserId.class,
+      responseType = grpc.WhoAreYouParams.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<grpc.Card,
-      grpc.Status> getDelCardMethod() {
-    io.grpc.MethodDescriptor<grpc.Card, grpc.Status> getDelCardMethod;
+  public static io.grpc.MethodDescriptor<grpc.UserId,
+      grpc.WhoAreYouParams> getDelCardMethod() {
+    io.grpc.MethodDescriptor<grpc.UserId, grpc.WhoAreYouParams> getDelCardMethod;
     if ((getDelCardMethod = PaymentServiceGrpc.getDelCardMethod) == null) {
       synchronized (PaymentServiceGrpc.class) {
         if ((getDelCardMethod = PaymentServiceGrpc.getDelCardMethod) == null) {
           PaymentServiceGrpc.getDelCardMethod = getDelCardMethod =
-              io.grpc.MethodDescriptor.<grpc.Card, grpc.Status>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.UserId, grpc.WhoAreYouParams>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "delCard"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.Card.getDefaultInstance()))
+                  grpc.UserId.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.Status.getDefaultInstance()))
+                  grpc.WhoAreYouParams.getDefaultInstance()))
               .setSchemaDescriptor(new PaymentServiceMethodDescriptorSupplier("delCard"))
               .build();
         }
       }
     }
     return getDelCardMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpc.UserId,
+      grpc.ListOfOperation> getGetJournalMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getJournal",
+      requestType = grpc.UserId.class,
+      responseType = grpc.ListOfOperation.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpc.UserId,
+      grpc.ListOfOperation> getGetJournalMethod() {
+    io.grpc.MethodDescriptor<grpc.UserId, grpc.ListOfOperation> getGetJournalMethod;
+    if ((getGetJournalMethod = PaymentServiceGrpc.getGetJournalMethod) == null) {
+      synchronized (PaymentServiceGrpc.class) {
+        if ((getGetJournalMethod = PaymentServiceGrpc.getGetJournalMethod) == null) {
+          PaymentServiceGrpc.getGetJournalMethod = getGetJournalMethod =
+              io.grpc.MethodDescriptor.<grpc.UserId, grpc.ListOfOperation>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getJournal"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.UserId.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.ListOfOperation.getDefaultInstance()))
+              .setSchemaDescriptor(new PaymentServiceMethodDescriptorSupplier("getJournal"))
+              .build();
+        }
+      }
+    }
+    return getGetJournalMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<grpc.UserId,
@@ -211,6 +242,37 @@ public final class PaymentServiceGrpc {
       }
     }
     return getGetBalanceMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpc.TaskId,
+      grpc.Task> getGetTaskMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getTask",
+      requestType = grpc.TaskId.class,
+      responseType = grpc.Task.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpc.TaskId,
+      grpc.Task> getGetTaskMethod() {
+    io.grpc.MethodDescriptor<grpc.TaskId, grpc.Task> getGetTaskMethod;
+    if ((getGetTaskMethod = PaymentServiceGrpc.getGetTaskMethod) == null) {
+      synchronized (PaymentServiceGrpc.class) {
+        if ((getGetTaskMethod = PaymentServiceGrpc.getGetTaskMethod) == null) {
+          PaymentServiceGrpc.getGetTaskMethod = getGetTaskMethod =
+              io.grpc.MethodDescriptor.<grpc.TaskId, grpc.Task>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getTask"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.TaskId.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.Task.getDefaultInstance()))
+              .setSchemaDescriptor(new PaymentServiceMethodDescriptorSupplier("getTask"))
+              .build();
+        }
+      }
+    }
+    return getGetTaskMethod;
   }
 
   /**
@@ -290,10 +352,20 @@ public final class PaymentServiceGrpc {
     }
 
     /**
+     * <pre>
+     *для удаления карты user можно получать из контекста
+     * </pre>
      */
-    public void delCard(grpc.Card request,
-        io.grpc.stub.StreamObserver<grpc.Status> responseObserver) {
+    public void delCard(grpc.UserId request,
+        io.grpc.stub.StreamObserver<grpc.WhoAreYouParams> responseObserver) {
       asyncUnimplementedUnaryCall(getDelCardMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getJournal(grpc.UserId request,
+        io.grpc.stub.StreamObserver<grpc.ListOfOperation> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetJournalMethod(), responseObserver);
     }
 
     /**
@@ -301,6 +373,13 @@ public final class PaymentServiceGrpc {
     public void getBalance(grpc.UserId request,
         io.grpc.stub.StreamObserver<grpc.Balance> responseObserver) {
       asyncUnimplementedUnaryCall(getGetBalanceMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getTask(grpc.TaskId request,
+        io.grpc.stub.StreamObserver<grpc.Task> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetTaskMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -337,9 +416,16 @@ public final class PaymentServiceGrpc {
             getDelCardMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                grpc.Card,
-                grpc.Status>(
+                grpc.UserId,
+                grpc.WhoAreYouParams>(
                   this, METHODID_DEL_CARD)))
+          .addMethod(
+            getGetJournalMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpc.UserId,
+                grpc.ListOfOperation>(
+                  this, METHODID_GET_JOURNAL)))
           .addMethod(
             getGetBalanceMethod(),
             asyncUnaryCall(
@@ -347,6 +433,13 @@ public final class PaymentServiceGrpc {
                 grpc.UserId,
                 grpc.Balance>(
                   this, METHODID_GET_BALANCE)))
+          .addMethod(
+            getGetTaskMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpc.TaskId,
+                grpc.Task>(
+                  this, METHODID_GET_TASK)))
           .build();
     }
   }
@@ -398,11 +491,22 @@ public final class PaymentServiceGrpc {
     }
 
     /**
+     * <pre>
+     *для удаления карты user можно получать из контекста
+     * </pre>
      */
-    public void delCard(grpc.Card request,
-        io.grpc.stub.StreamObserver<grpc.Status> responseObserver) {
+    public void delCard(grpc.UserId request,
+        io.grpc.stub.StreamObserver<grpc.WhoAreYouParams> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getDelCardMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getJournal(grpc.UserId request,
+        io.grpc.stub.StreamObserver<grpc.ListOfOperation> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetJournalMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -411,6 +515,14 @@ public final class PaymentServiceGrpc {
         io.grpc.stub.StreamObserver<grpc.Balance> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getGetBalanceMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getTask(grpc.TaskId request,
+        io.grpc.stub.StreamObserver<grpc.Task> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetTaskMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -457,10 +569,20 @@ public final class PaymentServiceGrpc {
     }
 
     /**
+     * <pre>
+     *для удаления карты user можно получать из контекста
+     * </pre>
      */
-    public grpc.Status delCard(grpc.Card request) {
+    public grpc.WhoAreYouParams delCard(grpc.UserId request) {
       return blockingUnaryCall(
           getChannel(), getDelCardMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public grpc.ListOfOperation getJournal(grpc.UserId request) {
+      return blockingUnaryCall(
+          getChannel(), getGetJournalMethod(), getCallOptions(), request);
     }
 
     /**
@@ -468,6 +590,13 @@ public final class PaymentServiceGrpc {
     public grpc.Balance getBalance(grpc.UserId request) {
       return blockingUnaryCall(
           getChannel(), getGetBalanceMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public grpc.Task getTask(grpc.TaskId request) {
+      return blockingUnaryCall(
+          getChannel(), getGetTaskMethod(), getCallOptions(), request);
     }
   }
 
@@ -518,11 +647,22 @@ public final class PaymentServiceGrpc {
     }
 
     /**
+     * <pre>
+     *для удаления карты user можно получать из контекста
+     * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<grpc.Status> delCard(
-        grpc.Card request) {
+    public com.google.common.util.concurrent.ListenableFuture<grpc.WhoAreYouParams> delCard(
+        grpc.UserId request) {
       return futureUnaryCall(
           getChannel().newCall(getDelCardMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpc.ListOfOperation> getJournal(
+        grpc.UserId request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetJournalMethod(), getCallOptions()), request);
     }
 
     /**
@@ -532,6 +672,14 @@ public final class PaymentServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetBalanceMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpc.Task> getTask(
+        grpc.TaskId request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetTaskMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PAYMENT = 0;
@@ -539,7 +687,9 @@ public final class PaymentServiceGrpc {
   private static final int METHODID_REFUND = 2;
   private static final int METHODID_ADD_CARD = 3;
   private static final int METHODID_DEL_CARD = 4;
-  private static final int METHODID_GET_BALANCE = 5;
+  private static final int METHODID_GET_JOURNAL = 5;
+  private static final int METHODID_GET_BALANCE = 6;
+  private static final int METHODID_GET_TASK = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -575,12 +725,20 @@ public final class PaymentServiceGrpc {
               (io.grpc.stub.StreamObserver<grpc.APIResponse>) responseObserver);
           break;
         case METHODID_DEL_CARD:
-          serviceImpl.delCard((grpc.Card) request,
-              (io.grpc.stub.StreamObserver<grpc.Status>) responseObserver);
+          serviceImpl.delCard((grpc.UserId) request,
+              (io.grpc.stub.StreamObserver<grpc.WhoAreYouParams>) responseObserver);
+          break;
+        case METHODID_GET_JOURNAL:
+          serviceImpl.getJournal((grpc.UserId) request,
+              (io.grpc.stub.StreamObserver<grpc.ListOfOperation>) responseObserver);
           break;
         case METHODID_GET_BALANCE:
           serviceImpl.getBalance((grpc.UserId) request,
               (io.grpc.stub.StreamObserver<grpc.Balance>) responseObserver);
+          break;
+        case METHODID_GET_TASK:
+          serviceImpl.getTask((grpc.TaskId) request,
+              (io.grpc.stub.StreamObserver<grpc.Task>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -648,7 +806,9 @@ public final class PaymentServiceGrpc {
               .addMethod(getRefundMethod())
               .addMethod(getAddCardMethod())
               .addMethod(getDelCardMethod())
+              .addMethod(getGetJournalMethod())
               .addMethod(getGetBalanceMethod())
+              .addMethod(getGetTaskMethod())
               .build();
         }
       }

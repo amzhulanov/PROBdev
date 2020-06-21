@@ -3,7 +3,6 @@ package com.jam.example.paymentservice.entities;
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
 import com.jam.example.paymentservice.entities.enums.StatusTask;
 import com.jam.example.paymentservice.entities.enums.TypeOperation;
-import grpc.BDecimal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -32,11 +31,16 @@ public class Task extends AbstractEntityNoGen {
     @JoinColumn(name = "card_id")
     private UserCard userCard;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+
     //@Transient - нельзя иначе хибер скажет что изменения только в этом поле
     // не меняют сущность и не будет вызывать @PreUpdate
     // - мусорное поле в базе
     private StatusTask statusTask;
     @Basic
+    @NotNull
     private int statusTaskValue;
 
     @PostLoad
@@ -61,8 +65,9 @@ public class Task extends AbstractEntityNoGen {
     @NotNull
     private int typeOperationValue;
 
-    public Task(UserCard userCard, TypeOperation typeOperation, BigDecimal amount, StatusTask statusTask) {
+    public Task(UserCard userCard,User user, TypeOperation typeOperation, BigDecimal amount, StatusTask statusTask) {
         this.userCard = userCard;
+        this.user=user;
         this.typeOperation=typeOperation;
         this.amount = amount;
         this.statusTask = statusTask;

@@ -1,12 +1,9 @@
 package com.jam.example.paymentservice.utils;
 
-import com.google.protobuf.ByteString;
 import com.jam.example.paymentservice.entities.User;
 import com.jam.example.paymentservice.entities.UserCard;
 import com.jam.example.paymentservice.services.UserCardService;
 import com.jam.example.paymentservice.services.UserService;
-import grpc.BDecimal;
-import grpc.BInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

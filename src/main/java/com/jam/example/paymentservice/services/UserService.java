@@ -1,6 +1,5 @@
 package com.jam.example.paymentservice.services;
 
-import com.google.protobuf.ByteString;
 import com.jam.example.paymentservice.api.mapper.ConvertGrpcToEntity;
 import com.jam.example.paymentservice.entities.User;
 import com.jam.example.paymentservice.repository.UserRepository;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.UUID;
 
 @Service

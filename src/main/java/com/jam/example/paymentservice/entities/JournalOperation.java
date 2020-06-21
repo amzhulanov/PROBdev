@@ -2,7 +2,6 @@ package com.jam.example.paymentservice.entities;
 
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
 import com.jam.example.paymentservice.entities.enums.TypeOperation;
-import grpc.BDecimal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

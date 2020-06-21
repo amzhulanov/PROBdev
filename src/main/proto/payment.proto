@@ -28,11 +28,25 @@ message Balance {
     BDecimal amount=1;
 }
 
+message ListOfOperation{
+     repeated Operation operation=1;
+}
+
+message Operation{
+    UUID userId=1;
+    string typeOperation=2;
+    string number=3;
+    BDecimal amount=4;
+}
+
 message Task{
     UUID userId=1;
     int32 type=2;
     string update=3;
+}
 
+message TaskId{
+    UUID taskId=1;
 }
 
 message UUID{
@@ -46,13 +60,19 @@ message BDecimal {
 message BInteger {
     bytes value = 1;
 }
+message WhoAreYouParams{
+
+}
+
 
 service PaymentService{
     rpc payment(CashFlow) returns (APIResponse);
     rpc enroll(CashFlow) returns (Status);
     rpc refund(CashFlow) returns (APIResponse);
     rpc addCard(Card) returns (APIResponse);
-    rpc delCard(Card) returns (Status);
+    rpc delCard(UserId) returns (WhoAreYouParams); //для удаления карты user можно получать из контекста
+    rpc getJournal(UserId) returns (ListOfOperation);
     rpc getBalance(UserId) returns (Balance);
+    rpc getTask(TaskId) returns (Task);
 
 }

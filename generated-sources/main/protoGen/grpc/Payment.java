@@ -45,10 +45,25 @@ public final class Payment {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Balance_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ListOfOperation_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ListOfOperation_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Operation_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Operation_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Task_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Task_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_TaskId_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_TaskId_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_UUID_descriptor;
   static final 
@@ -64,6 +79,11 @@ public final class Payment {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_BInteger_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_WhoAreYouParams_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_WhoAreYouParams_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -79,17 +99,24 @@ public final class Payment {
       "ard\022\025\n\006userId\030\001 \001(\0132\005.UUID\022\016\n\006number\030\002 \001" +
       "(\t\"\037\n\006UserId\022\025\n\006userId\030\001 \001(\0132\005.UUID\"\030\n\006S" +
       "tatus\022\016\n\006status\030\001 \001(\t\"$\n\007Balance\022\031\n\006amou" +
-      "nt\030\001 \001(\0132\t.BDecimal\";\n\004Task\022\025\n\006userId\030\001 " +
-      "\001(\0132\005.UUID\022\014\n\004type\030\002 \001(\005\022\016\n\006update\030\003 \001(\t" +
-      "\"\025\n\004UUID\022\r\n\005value\030\001 \001(\t\"5\n\010BDecimal\022\r\n\005s" +
-      "cale\030\001 \001(\005\022\032\n\007int_val\030\002 \001(\0132\t.BInteger\"\031" +
-      "\n\010BInteger\022\r\n\005value\030\001 \001(\0142\321\001\n\016PaymentSer" +
-      "vice\022\"\n\007payment\022\t.CashFlow\032\014.APIResponse" +
-      "\022\034\n\006enroll\022\t.CashFlow\032\007.Status\022!\n\006refund" +
-      "\022\t.CashFlow\032\014.APIResponse\022\036\n\007addCard\022\005.C" +
-      "ard\032\014.APIResponse\022\031\n\007delCard\022\005.Card\032\007.St" +
-      "atus\022\037\n\ngetBalance\022\007.UserId\032\010.BalanceB\010\n" +
-      "\004grpcP\001b\006proto3"
+      "nt\030\001 \001(\0132\t.BDecimal\"0\n\017ListOfOperation\022\035" +
+      "\n\toperation\030\001 \003(\0132\n.Operation\"d\n\tOperati" +
+      "on\022\025\n\006userId\030\001 \001(\0132\005.UUID\022\025\n\rtypeOperati" +
+      "on\030\002 \001(\t\022\016\n\006number\030\003 \001(\t\022\031\n\006amount\030\004 \001(\013" +
+      "2\t.BDecimal\";\n\004Task\022\025\n\006userId\030\001 \001(\0132\005.UU" +
+      "ID\022\014\n\004type\030\002 \001(\005\022\016\n\006update\030\003 \001(\t\"\037\n\006Task" +
+      "Id\022\025\n\006taskId\030\001 \001(\0132\005.UUID\"\025\n\004UUID\022\r\n\005val" +
+      "ue\030\001 \001(\t\"5\n\010BDecimal\022\r\n\005scale\030\001 \001(\005\022\032\n\007i" +
+      "nt_val\030\002 \001(\0132\t.BInteger\"\031\n\010BInteger\022\r\n\005v" +
+      "alue\030\001 \001(\014\"\021\n\017WhoAreYouParams2\240\002\n\016Paymen" +
+      "tService\022\"\n\007payment\022\t.CashFlow\032\014.APIResp" +
+      "onse\022\034\n\006enroll\022\t.CashFlow\032\007.Status\022!\n\006re" +
+      "fund\022\t.CashFlow\032\014.APIResponse\022\036\n\007addCard" +
+      "\022\005.Card\032\014.APIResponse\022$\n\007delCard\022\007.UserI" +
+      "d\032\020.WhoAreYouParams\022\'\n\ngetJournal\022\007.User" +
+      "Id\032\020.ListOfOperation\022\037\n\ngetBalance\022\007.Use" +
+      "rId\032\010.Balance\022\031\n\007getTask\022\007.TaskId\032\005.Task" +
+      "B\010\n\004grpcP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -131,30 +158,54 @@ public final class Payment {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Balance_descriptor,
         new java.lang.String[] { "Amount", });
-    internal_static_Task_descriptor =
+    internal_static_ListOfOperation_descriptor =
       getDescriptor().getMessageTypes().get(6);
+    internal_static_ListOfOperation_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ListOfOperation_descriptor,
+        new java.lang.String[] { "Operation", });
+    internal_static_Operation_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_Operation_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Operation_descriptor,
+        new java.lang.String[] { "UserId", "TypeOperation", "Number", "Amount", });
+    internal_static_Task_descriptor =
+      getDescriptor().getMessageTypes().get(8);
     internal_static_Task_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Task_descriptor,
         new java.lang.String[] { "UserId", "Type", "Update", });
+    internal_static_TaskId_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_TaskId_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TaskId_descriptor,
+        new java.lang.String[] { "TaskId", });
     internal_static_UUID_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_UUID_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_UUID_descriptor,
         new java.lang.String[] { "Value", });
     internal_static_BDecimal_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_BDecimal_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BDecimal_descriptor,
         new java.lang.String[] { "Scale", "IntVal", });
     internal_static_BInteger_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_BInteger_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BInteger_descriptor,
         new java.lang.String[] { "Value", });
+    internal_static_WhoAreYouParams_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_WhoAreYouParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_WhoAreYouParams_descriptor,
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

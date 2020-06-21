@@ -1,5 +1,6 @@
 package com.jam.example.paymentservice;
 
+import com.jam.example.paymentservice.entities.JournalOperation;
 import com.jam.example.paymentservice.entities.User;
 import com.jam.example.paymentservice.entities.UserCard;
 import com.jam.example.paymentservice.entities.enums.TypeOperation;
@@ -27,6 +28,8 @@ public class Initialization implements ApplicationRunner{
         private UserCardService userCardService;
         @Autowired
         private UserService userService;
+
+
 
 
         // run before tests
