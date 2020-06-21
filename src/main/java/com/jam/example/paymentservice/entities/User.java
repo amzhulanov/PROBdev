@@ -2,13 +2,15 @@ package com.jam.example.paymentservice.entities;
 
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
 import grpc.BDecimal;
-import grpc.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Table(name = "uzer")
@@ -18,7 +20,10 @@ import javax.validation.constraints.NotNull;
 public class User extends AbstractEntityNoGen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column( columnDefinition = "uuid", updatable = false )
+////    @GenericGenerator(name="system-uuid", strategy = "uuid")
+//    @org.hibernate.annotations.Type(type="pg-uuid")
     protected UUID user_id;
 
     @NotNull
@@ -30,9 +35,10 @@ public class User extends AbstractEntityNoGen {
     @NotNull
     private BDecimal balance;
 
-    public User(String firstName, String password) {
+    public User(String firstName, String password,BDecimal balance) {
         this.firstName = firstName;
         this.password = password;
+        this.balance=balance;
     }
 
 

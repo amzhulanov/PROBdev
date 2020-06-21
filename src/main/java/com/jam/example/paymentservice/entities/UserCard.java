@@ -1,10 +1,10 @@
 package com.jam.example.paymentservice.entities;
 
 import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
-import grpc.UUID;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity
@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class UserCard extends AbstractEntityNoGen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column( columnDefinition = "uuid", updatable = false )
     private UUID card_id;
 
     private String card_number;

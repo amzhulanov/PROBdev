@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 
 @GrpcService
 @Slf4j
@@ -37,11 +39,18 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
 
     @Override
     public void payment(CashFlow request, StreamObserver<APIResponse> responseObserver) {
-
-        UserCard userCard=userCardService.findByUser(userService.findById(request.getUserId()));
-        grpc.UUID id_task=taskService.addTask(userCard,TypeOperation.PAYMENT,request.getAmount());
-        journalOperationService.addJournalOperation(userService.findById(request.getUserId()),TypeOperation.PAYMENT,userCard,request.getAmount());
-        APIResponse apiResponse=APIResponse.newBuilder().setIdTask(id_task).build();
+        //преобразую grpc.UUID в java.util.UUID
+        UUID uuid=UUID.fromString(request.getUserIdOrBuilder().getValue());
+        log.info("Payment: userI="+uuid+" amount"+request.getAmount());
+        //определяю номер карты Пользователя
+        UserCard userCard=userCardService.findByUser(userService.findById(uuid));
+        log.info("Payment: userCard.number="+userCard.getCard_number());
+        //добавляю Task на оплату (userCard,TypeOperation.PAYMENT, amount)
+        UUID id_task1=taskService.addTask(userCard,TypeOperation.PAYMENT,request.getAmount());
+        //добавляю запись в Журнал (user,TypeOperation.PAYMENT, userCard, amount)
+        journalOperationService.addJournalOperation(userService.findById(uuid),TypeOperation.PAYMENT,userCard,request.getAmount());//
+        //заворачиваю id_task в ответ
+        APIResponse apiResponse=APIResponse.newBuilder().setIdTask(tryam(id_task1.toString())).build();
         responseObserver.onNext(apiResponse);
         responseObserver.onCompleted();
 
@@ -79,4 +88,11 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
     public void getBalance(grpc.UserId request, StreamObserver<Balance> responseObserver) {
         super.getBalance(request, responseObserver);
     }
+
+    private grpc.UUID tryam(String value){
+    grpc.UUID uuid=grpc.UUID.newBuilder()
+            .setValue(value)
+                .build();
+    return uuid;
+        }
 }

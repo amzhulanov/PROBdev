@@ -2,11 +2,12 @@ package com.jam.example.paymentservice.services;
 
 import com.jam.example.paymentservice.entities.User;
 import com.jam.example.paymentservice.repository.UserRepository;
-import grpc.UUID;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @NoArgsConstructor

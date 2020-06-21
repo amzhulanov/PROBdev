@@ -4,13 +4,13 @@ import com.jam.example.paymentservice.entities.base.AbstractEntityNoGen;
 import com.jam.example.paymentservice.entities.enums.StatusTask;
 import com.jam.example.paymentservice.entities.enums.TypeOperation;
 import grpc.BDecimal;
-import grpc.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tasks")
@@ -20,7 +20,8 @@ import javax.validation.constraints.NotNull;
 public class Task extends AbstractEntityNoGen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column( columnDefinition = "uuid", updatable = false )
     protected UUID task_id;
 
     @NotNull
