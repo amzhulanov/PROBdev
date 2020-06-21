@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -32,7 +33,7 @@ public class JournalOperation extends AbstractEntityNoGen {
     private UserCard userCard;
 
     @NotNull
-    private BDecimal amount;
+    private BigDecimal amount;
 
     //@Transient - нельзя иначе хибер скажет что изменения только в этом поле
     // не меняют сущность и не будет вызывать @PreUpdate
@@ -57,7 +58,7 @@ public class JournalOperation extends AbstractEntityNoGen {
         }
     }
 
-    public JournalOperation(User user,TypeOperation typeOperation,UserCard userCard, BDecimal amount){
+    public JournalOperation(User user,TypeOperation typeOperation,UserCard userCard, BigDecimal amount){
         this.user=user;
         this.typeOperation=typeOperation;
         this.userCard=userCard;

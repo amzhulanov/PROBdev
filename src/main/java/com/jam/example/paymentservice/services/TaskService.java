@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
@@ -22,7 +23,7 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public UUID addTask(UserCard userCard, TypeOperation typeOperation, BDecimal amount) {
+    public UUID addTask(UserCard userCard, TypeOperation typeOperation, BigDecimal amount) {
         return taskRepository.save(new Task(userCard, typeOperation, amount, StatusTask.NEW)).getTask_id();
     }
 

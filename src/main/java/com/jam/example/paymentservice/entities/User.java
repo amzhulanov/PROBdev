@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -33,9 +34,9 @@ public class User extends AbstractEntityNoGen {
     private String firstName;
 
     @NotNull
-    private BDecimal balance;
+    private BigDecimal balance;
 
-    public User(String firstName, String password,BDecimal balance) {
+    public User(String firstName, String password,BigDecimal balance) {
         this.firstName = firstName;
         this.password = password;
         this.balance=balance;

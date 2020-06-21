@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -25,7 +26,7 @@ public class Task extends AbstractEntityNoGen {
     protected UUID task_id;
 
     @NotNull
-    private BDecimal amount;
+    private BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "card_id")
@@ -57,11 +58,12 @@ public class Task extends AbstractEntityNoGen {
 
     private TypeOperation typeOperation;
     @Basic
+    @NotNull
     private int typeOperationValue;
 
-    //serCard userCard, TypeOperation payment, StatusTask aNew
-    public Task(UserCard userCard, TypeOperation typeOperation, BDecimal amount, StatusTask statusTask) {
+    public Task(UserCard userCard, TypeOperation typeOperation, BigDecimal amount, StatusTask statusTask) {
         this.userCard = userCard;
+        this.typeOperation=typeOperation;
         this.amount = amount;
         this.statusTask = statusTask;
     }

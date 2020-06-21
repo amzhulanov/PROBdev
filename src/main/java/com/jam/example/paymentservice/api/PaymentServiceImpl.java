@@ -1,5 +1,6 @@
 package com.jam.example.paymentservice.api;
 
+import com.jam.example.paymentservice.api.mapper.ConvertGrpcToEntity;
 import com.jam.example.paymentservice.entities.UserCard;
 import com.jam.example.paymentservice.entities.enums.TypeOperation;
 import com.jam.example.paymentservice.services.JournalOperationService;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 
@@ -28,29 +30,32 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
     private final TaskService taskService;
     private final UserCardService userCardService;
     private final JournalOperationService journalOperationService;
+    private final ConvertGrpcToEntity convertGrpcToEntity;
 
     @Autowired
-    public PaymentServiceImpl(UserService userService, TaskService taskService, UserCardService userCardService, JournalOperationService journalOperationService) {
+    public PaymentServiceImpl(UserService userService, TaskService taskService, UserCardService userCardService, JournalOperationService journalOperationService, ConvertGrpcToEntity convertGrpcToEntity) {
         this.userService = userService;
         this.taskService = taskService;
         this.userCardService = userCardService;
         this.journalOperationService = journalOperationService;
+        this.convertGrpcToEntity = convertGrpcToEntity;
     }
 
     @Override
     public void payment(CashFlow request, StreamObserver<APIResponse> responseObserver) {
-        //преобразую grpc.UUID в java.util.UUID
-        UUID uuid=UUID.fromString(request.getUserIdOrBuilder().getValue());
-        log.info("Payment: userI="+uuid+" amount"+request.getAmount());
+        UUID userId=convertGrpcToEntity.grpcUUIDToJavaUUID(request.getUserId());
         //определяю номер карты Пользователя
-        UserCard userCard=userCardService.findByUser(userService.findById(uuid));
+        UserCard userCard=userCardService.findByUser(userService.findById(userId));
         log.info("Payment: userCard.number="+userCard.getCard_number());
+
         //добавляю Task на оплату (userCard,TypeOperation.PAYMENT, amount)
-        UUID id_task1=taskService.addTask(userCard,TypeOperation.PAYMENT,request.getAmount());
+        UUID id_task=taskService.addTask(userCard,TypeOperation.PAYMENT,convertGrpcToEntity.grpcBDecimalToBigDecimal(request.getAmount()));
+
         //добавляю запись в Журнал (user,TypeOperation.PAYMENT, userCard, amount)
-        journalOperationService.addJournalOperation(userService.findById(uuid),TypeOperation.PAYMENT,userCard,request.getAmount());//
+        journalOperationService.addJournalOperation(request,TypeOperation.PAYMENT);
+
         //заворачиваю id_task в ответ
-        APIResponse apiResponse=APIResponse.newBuilder().setIdTask(tryam(id_task1.toString())).build();
+        APIResponse apiResponse=APIResponse.newBuilder().setIdTask(tryam(id_task.toString())).build();
         responseObserver.onNext(apiResponse);
         responseObserver.onCompleted();
 
@@ -58,10 +63,12 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
 
     @Override
     public void enroll(CashFlow request, StreamObserver<Status> responseObserver) {
-        //todo Зачисляются деньги пользователю
-        log.info("Amount=" + request.getAmount() + " UserId=" + request.getUserId());
-        //todo Выполняется логгирование операции в БД
-        //super.enroll(request, responseObserver);
+        //пополняю баланс
+        BigDecimal newBalance=userService.addBalance(request);
+        log.info("Баланс пополнен на сумму " + request.getAmount() + " Текущий баланс =" + newBalance);
+
+        //journalOperationService.addJournalOperation(userService.findById(userId),TypeOperation.PAYMENT,userCard,request.getAmount());
+        journalOperationService.addJournalOperation(request,TypeOperation.ENROLL);
 
         Status status = Status.newBuilder().setStatus("success").build();
         responseObserver.onNext(status);

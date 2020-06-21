@@ -11,7 +11,7 @@ import java.util.Map;
 @Getter
 public enum TypeOperation {
 
-    NULL(0), // kludge
+    //NULL(0), // kludge
     PAYMENT(1),
     ENROLL(2),
     REFUND(3),

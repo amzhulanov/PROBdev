@@ -1,5 +1,6 @@
 package com.jam.example.paymentservice.api;
 
+import com.jam.example.paymentservice.api.mapper.ConvertGrpcToEntity;
 import com.jam.example.paymentservice.services.JournalOperationService;
 import com.jam.example.paymentservice.services.TaskService;
 import com.jam.example.paymentservice.services.UserCardService;
@@ -31,12 +32,14 @@ public class PaymentServer {
     private final TaskService taskService;
     private final UserCardService userCardService;
     private final JournalOperationService journalOperationService;
+    private final ConvertGrpcToEntity convertGrpcToEntity;
 
-    public PaymentServer(UserService userService, TaskService taskService, UserCardService userCardService, JournalOperationService journalOperationService) {
+    public PaymentServer(UserService userService, TaskService taskService, UserCardService userCardService, JournalOperationService journalOperationService, ConvertGrpcToEntity convertGrpcToEntity) {
         this.userService = userService;
         this.taskService = taskService;
         this.userCardService = userCardService;
         this.journalOperationService = journalOperationService;
+        this.convertGrpcToEntity = convertGrpcToEntity;
     }
 
     public void start() throws IOException  {
@@ -60,7 +63,7 @@ public class PaymentServer {
                 .keepAliveTime(KEEP_ALIVE_TIME, TimeUnit.SECONDS)
                 .keepAliveTimeout(KEEP_ALIVE_TIMEOUT, TimeUnit.SECONDS)
                 .permitKeepAliveTime(PERMIT_KEEP_ALIVE_TIME, TimeUnit.SECONDS)
-                .addService(ServerInterceptors.intercept(new PaymentServiceImpl(userService, taskService,userCardService,journalOperationService)))
+                .addService(ServerInterceptors.intercept(new PaymentServiceImpl(userService, taskService,userCardService,journalOperationService, convertGrpcToEntity)))
                 .build();
 
         start();

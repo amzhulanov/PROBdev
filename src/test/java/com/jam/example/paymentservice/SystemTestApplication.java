@@ -3,4 +3,8 @@
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 //
 //
-//public class SystemTestApplication {}
+////@SpringBootApplication(scanBasePackages="com.jam.example.paymentservice")
+//@SpringBootApplication()
+//public class SystemTestApplication {
+//
+//}
