@@ -49,11 +49,19 @@ dependencies {
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
     compile group: 'io.grpc', name: 'grpc-core', version: '1.30.0'
 
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
+
+
+
     testImplementation "io.grpc:grpc-testing:${grpcVersion}"
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-  //  testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
+
+
+    //  testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     runtimeOnly 'org.postgresql:postgresql'

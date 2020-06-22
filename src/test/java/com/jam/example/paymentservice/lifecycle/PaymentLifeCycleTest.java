@@ -1,15 +1,13 @@
-package com.jam.example.paymentservice.api;
+package com.jam.example.paymentservice.lifecycle;
 
 import com.jam.example.paymentservice.api.mapper.ConvertEntityToGrpc;
 import com.jam.example.paymentservice.api.mapper.ConvertGrpcToEntity;
+import com.jam.example.paymentservice.entities.User;
 import com.jam.example.paymentservice.services.UserService;
 import com.jam.example.paymentservice.utils.GenerateBDecimal;
-import grpc.*;
 import grpc.APIResponse;
 import grpc.CashFlow;
-import grpc.ListOfOperation;
 import grpc.PaymentServiceGrpc;
-import grpc.Status;
 import grpc.UserId;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -23,14 +21,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 @SpringBootTest()
 @RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
-public class PaymentServiceImplTest {
-
+public class PaymentLifeCycleTest {
     @Value("${grpc.server}")
     public String host;
     @Value("${grpc.server.port}")
@@ -48,6 +48,7 @@ public class PaymentServiceImplTest {
     private ManagedChannel channel;
     private PaymentServiceGrpc.PaymentServiceBlockingStub stub;
     private APIResponse apiResponse;
+    private User user;
 
     @Before
     public void openChannel() {
@@ -55,6 +56,12 @@ public class PaymentServiceImplTest {
                 .usePlaintext()
                 .build();
         stub = PaymentServiceGrpc.newBlockingStub(channel);
+        if (userService.findByFirstName("Android") == null) {
+            user = new User("Android", "Android", new BigDecimal(10));
+            userService.save(user);
+            log.info("В базу добавлен тестовый пользователь " + user.getFirstName());
+        }
+
     }
 
     @After
@@ -64,45 +71,29 @@ public class PaymentServiceImplTest {
 
     @Test
     public void testPayment() {
-
-        apiResponse = stub.payment(
+        grpc.Status status;
+        BigInteger bg=new BigInteger("0");
+        status = stub.enroll(
                 CashFlow.newBuilder()
-                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(userService.findByFirstName("Ivan").getUser_id()))
-                        .setAmount(generateBDecimal.getbDecimal())
+                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(user.getUser_id()))
+                        .setAmount(generateBDecimal.getbDecimal(new BigInteger("200")))
                         .build());
-        log.info("Payment succefull: id_task=" + apiResponse);
-        assertTrue(apiResponse.getSerializedSize() > 0);
-    }
-
-    @Test
-    public void testEnroll() {
-        Status status = stub.enroll(
+        bg.add(new BigInteger("200"));
+        status = stub.enroll(
                 CashFlow.newBuilder()
-                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(userService.findByFirstName("Ivan").getUser_id()))
-                        .setAmount(generateBDecimal.getbDecimal())
+                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(user.getUser_id()))
+                        .setAmount(generateBDecimal.getbDecimal(new BigInteger("400")))
                         .build());
-        log.info("response from enrol = " + status);
-        assertTrue(status.getStatus().equals("success"));
-    }
-
-    @Test
-    public void testRefund() {
-        apiResponse = stub.refund(
-                CashFlow.newBuilder()
-                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(userService.findByFirstName("Ivan").getUser_id()))
-                        .setAmount(generateBDecimal.getbDecimal())
-                        .build());
-        log.info("The Task for Refund register: id_task=" + apiResponse);
-        assertTrue(apiResponse.getSerializedSize() > 0);
-    }
-
-    @Test
-    public void testGetJournal(){
-        grpc.ListOfOperation listOfOperation=stub.getJournal(
+        bg.add(new BigInteger("300"));
+        grpc.Balance balance = stub.getBalance(
                 UserId.newBuilder()
-                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(userService.findByFirstName("Ivan").getUser_id()))
+                        .setUserId(convertEntityToGrpc.javaUUIDToGrpcUUID(user.getUser_id()))
                         .build());
-                log.info("listOfOperation"+listOfOperation.getOperationList());
+
+        log.info("Balance Android " + balance);
+        log.info("Balance after convert " + convertGrpcToEntity.grpcBDecimalToBigDecimal(balance.getAmount()).toString());
+
+        assertThat(convertGrpcToEntity.grpcBDecimalToBigDecimal(balance.getAmount()),greaterThanOrEqualTo(new BigDecimal(510)));
 
     }
 }
